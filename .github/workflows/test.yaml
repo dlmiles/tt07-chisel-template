@@ -22,6 +22,17 @@ jobs:
       - name: Install Python packages
         shell: bash
         run: pip install -r test/requirements.txt
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: 'sbt'
+      - name: generate Verilog
+        run: sbt run
+
+      - name: run Chisel tests
+        run: sbt test
 
       - name: Run tests
         run: |
